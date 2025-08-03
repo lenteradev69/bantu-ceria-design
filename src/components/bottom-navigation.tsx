@@ -1,4 +1,4 @@
-import { Home, CreditCard, History, User } from "lucide-react";
+import { Home, History, Plus, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface NavItem {
@@ -15,8 +15,8 @@ interface BottomNavigationProps {
 
 const iconMap = {
   home: Home,
-  payment: CreditCard,
   history: History,
+  add_circle: Plus,
   profile: User,
 };
 

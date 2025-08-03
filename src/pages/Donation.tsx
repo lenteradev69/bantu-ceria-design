@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { Header } from "@/components/header";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -24,6 +25,8 @@ const donationData = {
 };
 
 export default function Donation() {
+  const navigate = useNavigate();
+  const { id } = useParams();
   const [selectedAmount, setSelectedAmount] = useState(donationData.defaultAmount);
   const [customAmount, setCustomAmount] = useState("");
   const [selectedPayment, setSelectedPayment] = useState(donationData.paymentMethods[0].id);
@@ -50,12 +53,12 @@ export default function Donation() {
   const handleDonate = () => {
     const finalAmount = isCustomAmount ? parseInt(customAmount.replace(/\D/g, '')) : selectedAmount;
     console.log("Donate amount:", finalAmount, "Payment method:", selectedPayment);
-    // Process donation logic would go here
+    // Process donation and navigate to success page
+    navigate('/history');
   };
 
   const handleBack = () => {
-    console.log("Navigate back");
-    // Navigation logic would go here
+    navigate(-1);
   };
 
   return (

@@ -6,6 +6,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import CampaignDetail from "./pages/CampaignDetail";
 import Donation from "./pages/Donation";
+import Profile from "./pages/Profile";
+import History from "./pages/History";
+import CreateCampaign from "./pages/CreateCampaign";
+import Notification from "./pages/Notification";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -20,6 +24,10 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/campaign/:id" element={<CampaignDetail />} />
           <Route path="/donation/:id" element={<Donation />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/history" element={<History />} />
+          <Route path="/create-campaign" element={<CreateCampaign />} />
+          <Route path="/notifications" element={<Notification />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

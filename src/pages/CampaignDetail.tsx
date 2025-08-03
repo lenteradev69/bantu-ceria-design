@@ -1,3 +1,4 @@
+import { useNavigate, useParams } from "react-router-dom";
 import { Header } from "@/components/header";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -27,6 +28,8 @@ const campaignData = {
 };
 
 export default function CampaignDetail() {
+  const navigate = useNavigate();
+  const { id } = useParams();
   const progressPercentage = (campaignData.collected / campaignData.target) * 100;
   
   const formatCurrency = (amount: number) => {
@@ -34,13 +37,11 @@ export default function CampaignDetail() {
   };
 
   const handleDonate = () => {
-    console.log("Navigate to donation page");
-    // Navigation logic would go here
+    navigate(`/donation/${id}`);
   };
 
   const handleBack = () => {
-    console.log("Navigate back");
-    // Navigation logic would go here
+    navigate(-1);
   };
 
   return (

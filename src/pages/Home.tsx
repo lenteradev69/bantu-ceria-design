@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Header } from "@/components/header";
 import { SearchBar } from "@/components/search-bar";
 import { CategoryTabs } from "@/components/category-tabs";
@@ -64,12 +65,13 @@ const categories = ["Semua", "Pendidikan", "Kesehatan", "Sosial", "Lainnya"];
 
 const bottomNavItems = [
   { label: "Beranda", icon: "home" },
-  { label: "Pembayaran", icon: "payment" },
   { label: "Riwayat", icon: "history" },
+  { label: "Buat", icon: "add_circle" },
   { label: "Profil", icon: "profile" }
 ];
 
 export default function Home() {
+  const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState("");
   const [activeCategory, setActiveCategory] = useState("Semua");
   const [activeNavIndex, setActiveNavIndex] = useState(0);
@@ -80,8 +82,29 @@ export default function Home() {
   });
 
   const handleCampaignClick = (campaignId: string) => {
-    console.log("Navigate to campaign:", campaignId);
-    // Navigation logic would go here
+    navigate(`/campaign/${campaignId}`);
+  };
+
+  const handleNavigation = (index: number) => {
+    setActiveNavIndex(index);
+    switch (index) {
+      case 0:
+        // Already on home
+        break;
+      case 1:
+        navigate('/history');
+        break;
+      case 2:
+        navigate('/create-campaign');
+        break;
+      case 3:
+        navigate('/profile');
+        break;
+    }
+  };
+
+  const handleNotification = () => {
+    navigate('/notifications');
   };
 
   return (
@@ -91,8 +114,8 @@ export default function Home() {
         showProfile={true}
         showNotification={true}
         user={userData}
-        onNotification={() => console.log("Notification clicked")}
-        onProfile={() => console.log("Profile clicked")}
+        onNotification={handleNotification}
+        onProfile={() => navigate('/profile')}
       />
 
       {/* Main Content */}
@@ -160,7 +183,10 @@ export default function Home() {
 
       {/* Bottom Navigation */}
       <BottomNavigation
-        items={bottomNavItems}
+        items={bottomNavItems.map((item, index) => ({
+          ...item,
+          onClick: () => handleNavigation(index)
+        }))}
         activeIndex={activeNavIndex}
       />
     </div>
